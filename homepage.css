@@ -12,11 +12,6 @@ nav ul {
     margin: 0;
 }
 
-nav ul li img {
-    width: 30px; 
-    height: auto;
-}
-
 nav ul li {
     display: inline;
     margin-right: 20px;
