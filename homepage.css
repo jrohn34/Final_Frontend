@@ -12,6 +12,11 @@ nav ul {
     margin: 0;
 }
 
+nav ul li img {
+    width: 30px; 
+    height: auto;
+}
+
 nav ul li {
     display: inline;
     margin-right: 20px;
@@ -59,8 +64,10 @@ nav ul li {
 
 .flower-item img {
     width: 100%; /* Adjust size as needed */
+    max-width: 150px; /* Limit maximum width */
     height: auto;
 }
+
 
 /* Adjustments for mobile responsiveness */
 @media screen and (max-width: 768px) {
