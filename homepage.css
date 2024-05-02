@@ -62,11 +62,6 @@ nav ul li {
     height: auto;
 }
 
-.basket-icon {
-    width: 20px; 
-    height: auto; 
-}
-
 /* Adjustments for mobile responsiveness */
 @media screen and (max-width: 768px) {
     .title-header {
