@@ -1,0 +1,71 @@
+header {
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+/* Title header styles */
+.title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.title-box {
+    background-color: #ffc0cb; /* Example color */
+    padding: 10px 20px;
+}
+
+.flower-image img {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+}
+
+/* Filter bar styles */
+.filter-bar {
+    margin-top: 20px;
+}
+
+/* Sort bar styles */
+.sort-bar {
+    margin-top: 10px;
+}
+
+/* Flower gallery styles */
+.flower-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.flower-item {
+    text-align: center;
+}
+
+.flower-item img {
+    width: 100%; /* Adjust size as needed */
+    height: auto;
+}
+
+/* Adjustments for mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .title-header {
+        flex-direction: column;
+        align-items: center;
+    }
+}
