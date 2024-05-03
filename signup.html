@@ -17,10 +17,14 @@
             <input type="email" id="email" name="email" placeholder="Email" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <div class="show-password">
-                <input type="checkbox" onclick="togglePasswordVisibility()"> Show Password
+                <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()"> Show Password
             </div>
             <button type="submit">CREATE AN ACCOUNT</button>
         </form>
+        <div class="alternate-action">
+            <p>Already have an account?</p>
+            <button onclick="window.location.href='login.html';">LOG IN</button>
+        </div>
     </main>
 
     <script src="scripts.js"></script>

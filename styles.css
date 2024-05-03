@@ -150,6 +150,25 @@ input[type="submit"]:hover, button:hover {
     background-color: #e68900;
 }
 
+.alternate-action {
+    text-align: center;
+    margin-top: 20px;
+}
 
+.alternate-action button {
+    background-color: #f9e2d2; 
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.alternate-action button:hover {
+    background-color: #f3d1c1; 
+}
+
+.alternate-action p {
+    margin-bottom: 10px;
+}
 
 
