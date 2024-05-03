@@ -18,8 +18,11 @@
 
     <main>
         <h1>Your Basket</h1>
-        <div id="basket-items"></div>
-        <button onclick="clearBasket()">Clear Basket</button>
+        <form id="basket-form">
+            <div id="basket-items"></div>
+            <button type="button" onclick="checkoutSelectedItems()">Checkout Selected Items</button>
+            <button type="button" onclick="clearBasket()">Clear Basket</button>
+        </form>
     </main>
 
     <script src="scripts.js"></script>
@@ -27,17 +30,33 @@
         document.addEventListener('DOMContentLoaded', function() {
             const basket = JSON.parse(localStorage.getItem('basket') || '[]');
             const basketItemsContainer = document.getElementById('basket-items');
-            let itemsHtml = basket.map(item => `
+            let itemsHtml = basket.map((item, index) => `
                 <div class="basket-item">
-                    <h3>${item.name}</h3>
-                    <p>Price: $${item.price}</p>
-                    <p>Delivery Date: ${item.deliveryDate}</p>
-                    <p>Purchase Option: ${item.purchaseOption}</p>
+                    <input type="checkbox" id="item-${index}" name="item" value="${index}">
+                    <label for="item-${index}">
+                        <h3>${item.name}</h3>
+                        <p>Price: $${item.price}</p>
+                        <p>Delivery Date: ${item.deliveryDate}</p>
+                        <p>Purchase Option: ${item.purchaseOption}</p>
+                    </label>
                 </div>
             `).join('');
             basketItemsContainer.innerHTML = itemsHtml;
             updateCartCount();
         });
+
+        function checkoutSelectedItems() {
+            const checkedItems = document.querySelectorAll('#basket-form input[name="item"]:checked');
+            const selectedItems = Array.from(checkedItems).map(input => parseInt(input.value));
+            const basket = JSON.parse(localStorage.getItem('basket') || '[]');
+            const itemsToCheckout = basket.filter((item, index) => selectedItems.includes(index));
+            if (itemsToCheckout.length > 0) {
+                localStorage.setItem('selectedItems', JSON.stringify(itemsToCheckout));
+                window.location.href = 'delivery_info.html';
+            } else {
+                alert('No items selected for checkout.');
+            }
+        }
 
         function clearBasket() {
             localStorage.setItem('basket', JSON.stringify([]));
