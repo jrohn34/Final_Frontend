@@ -48,7 +48,10 @@
                 localStorage.setItem('authToken', data.token);  // Save auth token if using JWT
                 window.location.href = 'index.html';  // Redirect to a homepage or dashboard
             })
-            .catch(error => alert(error.message));
+            .catch(error => {
+                console.error('Login error:', error);
+                alert('Failed to login: ' + error.message);
+            });
         });
 
         function togglePasswordVisibility() {

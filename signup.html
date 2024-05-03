@@ -42,17 +42,16 @@
     })
     .then(response => {
         if (!response.ok) throw new Error('Signup failed');
-        return response.text(); // Change to text() if expecting non-JSON responses
+        return response.text();
     })
     .then(text => {
         try {
-            const data = JSON.parse(text);  // Parse text to JSON
+            const data = JSON.parse(text);
             alert('Signup successful.');
-            window.location.href = 'login.html';  // Redirect to login after signup
+            window.location.href = 'login.html';
         } catch (error) {
-            // This will catch JSON parsing errors or if the JSON is empty
-            alert('Signup successful, no details returned.');
-            window.location.href = 'login.html'; // Redirect even if no data returned
+            alert('Signup successful.');
+            window.location.href = 'login.html'; 
         }
     })
     .catch(error => alert(error.message));
