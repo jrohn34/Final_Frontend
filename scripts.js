@@ -99,54 +99,6 @@ function saveDeliveryInfo() {
     }
 }
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username: email, password: password })
-    })
-    .then(response => {
-        if (response.ok) return response.json();
-        throw new Error('Login failed.');
-    })
-    .then(data => {
-        localStorage.setItem('authToken', data.token);
-        window.location.href = 'index.html';  
-    })
-    .catch(error => alert(error.message));
-});
-
-    document.getElementById('signupForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        fetch('/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username: email, password: password, email: email })
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Signup failed. Status: ' + response.status);
-            return response.json();
-        })
-        .then(data => {
-            alert('Signup successful. Welcome!');
-            window.location.href = 'index.html'; // Redirect or further interaction
-        })
-        .catch(error => {
-            console.error('Signup error:', error);
-            alert('Error during signup: ' + error.message);
-        });
-    });
 
 document.getElementById('showPassword').onclick = function() {
     const passwordInput = document.getElementById('password');
@@ -220,3 +172,36 @@ function placeOrder() {
         alert('Failed to place order: ' + error.message);
     });
 }
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (users.find(user => user.email === email)) {
+        alert('Email already exists.');
+        return;
+    }
+
+    users.push({ email, password });
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('Signup successful. You can now login.');
+    window.location.href = 'login.html';
+});
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(user => user.email === email && user.password === password);
+
+    if (user) {
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        alert('Login successful!');
+        window.location.href = 'index.html';
+    } else {
+        alert('Invalid credentials!');
+    }
+});
