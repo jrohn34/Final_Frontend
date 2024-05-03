@@ -60,11 +60,7 @@
 
         function placeOrder() {
             alert('Order placed successfully!');
-            // Clear local storage items related to the order
-            localStorage.removeItem('checkoutItems');
-            localStorage.removeItem('selectedFlower');
-            localStorage.removeItem('deliveryInfo');
-            window.location.href = 'order_confirmation.html'; // Redirect to a confirmation page
+            window.location.href = 'tracker.html'; 
         }
 
         function updateCartCount() {
