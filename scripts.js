@@ -210,23 +210,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
     const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
 
-    if (selectedFlower && deliveryInfo) {
-        document.getElementById('flower-name').textContent = selectedFlower.name;
-        document.getElementById('item-price').textContent = `$${selectedFlower.price}`;
-        document.getElementById('delivery-address').textContent = `${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state}, ${deliveryInfo.zip}`;
-
-        const subtotal = parseFloat(selectedFlower.price);
-        const deliveryCharge = 25;
-        const deliveryDiscount = localStorage.getItem('isLoggedIn') === 'true' ? 10 : 0;
-        const orderTotal = subtotal + deliveryCharge - deliveryDiscount;
-
-        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-        document.getElementById('delivery-discount').textContent = `-$${deliveryDiscount.toFixed(2)}`;
-        document.getElementById('order-total').textContent = `$${orderTotal.toFixed(2)}`;
-    } else {
-        alert('No flower or delivery information found');
-        window.location.href = 'index.html'; 
+    if (!selectedFlower || !deliveryInfo) {
+        console.error('Required information is missing.');
+        alert('Required information is missing.');
+        window.location.href = 'index.html'; // Redirect if data is missing
+        return;
     }
+    document.getElementById('flower-name').textContent = selectedFlower.name || 'No flower selected';
+    document.getElementById('item-price').textContent = `$${selectedFlower.price.toFixed(2)}`;
+    document.getElementById('delivery-address').textContent = `${deliveryInfo.firstName} ${deliveryInfo.lastName}, ${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state} ${deliveryInfo.zip}`;
+    document.getElementById('delivery-date').textContent = selectedFlower.deliveryDate || 'No date set';
+
+    const subtotal = parseFloat(selectedFlower.price);
+    const deliveryCharge = 25;
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; // Assuming you set this during login
+    const deliveryDiscount = isLoggedIn ? 10 : 0;
+    const orderTotal = subtotal + deliveryCharge - deliveryDiscount;
+
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('delivery-discount').textContent = isLoggedIn ? `-$${deliveryDiscount.toFixed(2)}` : '$0.00';
+    document.getElementById('order-total').textContent = `$${orderTotal.toFixed(2)}`;
 });
 
 function placeOrder() {
