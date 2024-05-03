@@ -27,6 +27,38 @@
         </div>
     </main>
 
-    <script src="scripts.js"></script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            fetch('http://localhost:8080/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: email, password: password, email: email })
+            })
+            .then(response => {
+                if (response.ok) return response.json();
+                throw new Error('Signup failed.');
+            })
+            .then(() => {
+                alert('Signup successful. Please log in.');
+                window.location.href = 'login.html';
+            })
+            .catch(error => alert(error.message));
+        });
+
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -17,13 +17,44 @@
             <input type="email" id="email" name="email" placeholder="Email" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <div class="show-password">
-                <input type="checkbox" id="showPassword"> Show Password
+                <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()"> Show Password
             </div>
             <button type="submit">LOG IN</button>
         </form>
     </main>
 
-    <script src="scripts.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: email, password: password })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Login failed');
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('authToken', data.token);  // Save auth token if using JWT
+                window.location.href = 'index.html';  // Redirect to a homepage or dashboard
+            })
+            .catch(error => alert(error.message));
+        });
+
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+    </script>
 </body>
 </html>
-
