@@ -33,6 +33,9 @@ function addToBasket() {
     localStorage.setItem('basket', JSON.stringify(basket));
     alert('Added to basket!');
     updateCartCount();
+
+    // Redirect to delivery information page
+    window.location.href = 'delivery_info.html';
 }
 
 function updateCartCount() {
@@ -73,17 +76,3 @@ function togglePasswordVisibility() {
         passwordInput.type = 'password';
     }
 }
-document.addEventListener('DOMContentLoaded', function() {
-    const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
-    if (selectedFlower) {
-        document.getElementById('flower-name').textContent = selectedFlower.name;
-        document.getElementById('flower-price').textContent = `$${selectedFlower.price}`;
-    } else {
-        document.getElementById('flower-name').textContent = 'No flower selected';
-        document.getElementById('flower-price').textContent = '';
-    }
-
-    window.saveDeliveryInfo = function() {
-        alert('Delivery information saved!');
-    };
-});
