@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Your Basket</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Final Project</div>
+        <nav>
+            <a href="#">Track Order</a>
+            <a href="#">Help</a>
+            <a href="basket.html">Cart <span id="cart-count">0</span></a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Your Basket</h1>
+        <div id="basket-items"></div>
+        <button onclick="clearBasket()">Clear Basket</button>
+    </main>
+
+    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const basket = JSON.parse(localStorage.getItem('basket') || '[]');
+            const basketItemsContainer = document.getElementById('basket-items');
+            let itemsHtml = basket.map(item => `
+                <div class="basket-item">
+                    <h3>${item.name}</h3>
+                    <p>Price: $${item.price}</p>
+                    <p>Delivery Date: ${item.deliveryDate}</p>
+                    <p>Purchase Option: ${item.purchaseOption}</p>
+                </div>
+            `).join('');
+            basketItemsContainer.innerHTML = itemsHtml;
+            updateCartCount();
+        });
+
+        function clearBasket() {
+            localStorage.setItem('basket', JSON.stringify([]));
+            document.getElementById('basket-items').innerHTML = '<p>Your basket is empty.</p>';
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const basket = JSON.parse(localStorage.getItem('basket') || '[]');
+            document.getElementById('cart-count').textContent = basket.length;
+        }
+    </script>
+</body>
+</html>
