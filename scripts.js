@@ -207,24 +207,30 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
     const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
+    const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
 
     if (selectedFlower && deliveryInfo) {
         document.getElementById('flower-name').textContent = selectedFlower.name;
-        document.getElementById('delivery-date').textContent = deliveryInfo.deliveryDate;
         document.getElementById('item-price').textContent = `$${selectedFlower.price}`;
-        document.getElementById('delivery-address').textContent = deliveryInfo.address;
+        document.getElementById('delivery-address').textContent = `${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state}, ${deliveryInfo.zip}`;
 
-        const subtotal = selectedFlower.price;
+        const subtotal = parseFloat(selectedFlower.price);
         const deliveryCharge = 25;
-        const discount = localStorage.getItem('isLoggedIn') === 'true' ? 10 : 0;
-        const total = subtotal + deliveryCharge - discount;
+        const deliveryDiscount = localStorage.getItem('isLoggedIn') === 'true' ? 10 : 0;
+        const orderTotal = subtotal + deliveryCharge - deliveryDiscount;
 
         document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-        document.getElementById('delivery-discount').textContent = `-$${discount.toFixed(2)}`;
-        document.getElementById('order-total').textContent = `$${total.toFixed(2)}`;
+        document.getElementById('delivery-discount').textContent = `-$${deliveryDiscount.toFixed(2)}`;
+        document.getElementById('order-total').textContent = `$${orderTotal.toFixed(2)}`;
     } else {
-        console.error('Data missing');
+        alert('No flower or delivery information found');
+        window.location.href = 'index.html'; 
     }
 });
+
+function placeOrder() {
+    alert('Order placed successfully!');
+    localStorage.clear(); 
+    window.location.href = 'order_confirmation.html';
+}
