@@ -1,0 +1,22 @@
+<main class="product-detail">
+    <img src="" alt="" id="product-image" class="product-image">
+    <div class="product-info">
+        <h2 id="product-name"></h2>
+        <div class="form-group">
+            <label for="delivery-date">Delivery Date:</label>
+            <input type="date" id="delivery-date" required>
+        </div>
+        <div class="form-group">
+            <label>Purchasing Options:</label>
+            <div class="radio-group">
+                <input type="radio" id="subscription" name="purchase-option" value="subscription" checked>
+                <label for="subscription">Start a Subscription: <span id="subscription-price"></span> + free shipping</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="one-time" name="purchase-option" value="one-time">
+                <label for="one-time">One time purchase: <span id="one-time-price"></span></label>
+            </div>
+        </div>
+        <button onclick="addToBasket()">Add to Basket</button>
+    </div>
+</main>
