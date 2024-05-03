@@ -3,75 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Send Her Blooms</title>
+    <title>Flower Shop</title>
+    <link rel="stylesheet" href="homepage.css">
 </head>
 <body>
     <header>
-        <h1>Send Her Blooms</h1>
         <nav>
-            <a href="#">Track Order</a>
-            <a href="#">Help</a>
-            <a href="#">Cart</a>
+            <ul>
+                <li><a href="#">Track Order</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#"><img src="basket_icon.png" alt="Basket"></a></li>
+            </ul>
         </nav>
+        <div class="title-header">
+            <div class="title-box">
+                <h1>Send her Blooms</h1>
+            </div>
+            <div class="flower-image">
+                <img src="flowers/1.jpeg" alt="Flowers">
+            </div>
+        </div>
+        <div class="filter-bar">
+            <select name="flower-type">
+                <option value="mixed">Mixed</option>
+                <option value="roses">Roses</option>
+                <option value="lilies">Lilies</option>
+                <option value="tulips">Tulips</option>
+                <option value="daisies">Daisies</option>
+            </select>
+            <select name="occasions">
+                <option value="mothers-day">Mother's Day</option>
+                <option value="birthday">Birthday</option>
+                <option value="thank-you">Thank You</option>
+            </select>
+            <select name="colors">
+                <option value="mixed">Mixed</option>
+                <option value="red">Red</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="orange">Orange</option>
+            </select>
+        </div>
+        <div class="sort-bar">
+            <select name="sorting-options">
+                <option value="price-low-to-high">Price: Low to High</option>
+                <option value="price-high-to-low">Price: High to Low</option>
+            </select>
+        </div>
     </header>
-    
-    <section class="filters">
-        <select>
-            <option>Flower Type</option>
-            <option>Roses</option>
-            <option>Lilies</option>
-        </select>
-        <select>
-            <option>Occasion</option>
-            <option>Anniversary</option>
-            <option>Birthday</option>
-        </select>
-        <select>
-            <option>Color</option>
-            <option>Pink</option>
-            <option>Yellow</option>
-        </select>
-        <select>
-            <option>Sort</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-        </select>
-    </section>
-
-    <section class="flower-grid">
-        <div class="flower">
-            <img src="flowers/images/1.png" alt="Sugar Rush">
-            <h3>Sugar Rush</h3>
-            <p>From $54</p>
+    <main>
+        <div class="flower-gallery">
+            <div class="flower-item">
+                <img src="flowers/1.jpeg" alt="Flower 1">
+                <h2>Flower Name</h2>
+                <p>$10.00</p>
+            </div>
+            <!-- Repeat flower-item div for each flower -->
         </div>
-        <div class="flower">
-            <img src="flowers/images/2.png" alt="Lemonade">
-            <h3>Lemonade</h3>
-            <p>From $54</p>
-        </div>
-        <div class="flower">
-            <img src="flowers/images/3.png" alt="The Angels">
-            <h3>The Angels</h3>
-            <p>From $54</p>
-        </div>
-        <div class="flower">
-            <img src="flowers/images/4.png" alt="Unbreakable">
-            <h3>Unbreakable</h3>
-            <p>From $59</p>
-        </div>
-        <div class="flower">
-            <img src="flowers/images/5.png" alt="Sierra Sunset">
-            <h3>Sierra Sunset</h3>
-            <p>From $59</p>
-        </div>
-        <div class="flower">
-            <img src="flowers/images/6.png" alt="Casablanca">
-            <h3>Casablanca</h3>
-            <p>From $59</p>
-        </div>
-    </section>
-
-    <script src="scripts.js"></script>
+    </main>
 </body>
 </html>
