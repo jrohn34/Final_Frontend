@@ -18,21 +18,23 @@
 
     <main>
         <h1>Your Basket</h1>
-        <form id="basket-form">
-            <div id="basket-items"></div>
-            <button type="button" onclick="checkoutSelectedItems()">Checkout Selected Items</button>
-            <button type="button" onclick="clearBasket()">Clear Basket</button>
-        </form>
+        <div id="basket-items"></div>
+        <button type="button" onclick="checkoutSelectedItems()">Checkout Selected Items</button>
+        <button type="button" onclick="clearBasket()">Clear Basket</button>
     </main>
 
-    <script src="scripts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            updateBasketItems();
+            updateCartCount();
+        });
+
+        function updateBasketItems() {
             const basket = JSON.parse(localStorage.getItem('basket') || '[]');
             const basketItemsContainer = document.getElementById('basket-items');
             let itemsHtml = basket.map((item, index) => `
                 <div class="basket-item">
-                    <input type="checkbox" id="item-${index}" name="item" value="${index}">
+                    <input type="checkbox" id="item-${index}" name="basketItem" value="${index}">
                     <label for="item-${index}">
                         <h3>${item.name}</h3>
                         <p>Price: $${item.price}</p>
@@ -42,25 +44,25 @@
                 </div>
             `).join('');
             basketItemsContainer.innerHTML = itemsHtml;
-            updateCartCount();
-        });
+        }
 
         function checkoutSelectedItems() {
-            const checkedItems = document.querySelectorAll('#basket-form input[name="item"]:checked');
-            const selectedItems = Array.from(checkedItems).map(input => parseInt(input.value));
+            const checkedBoxes = document.querySelectorAll('input[name="basketItem"]:checked');
+            const selectedItems = Array.from(checkedBoxes).map(cb => parseInt(cb.value));
             const basket = JSON.parse(localStorage.getItem('basket') || '[]');
             const itemsToCheckout = basket.filter((item, index) => selectedItems.includes(index));
+
             if (itemsToCheckout.length > 0) {
-                localStorage.setItem('selectedItems', JSON.stringify(itemsToCheckout));
-                window.location.href = 'delivery_info.html';
+                localStorage.setItem('checkoutItems', JSON.stringify(itemsToCheckout));
+                window.location.href = 'delivery_info.html'; // Redirect to delivery info page
             } else {
-                alert('No items selected for checkout.');
+                alert('Please select at least one item to checkout.');
             }
         }
 
         function clearBasket() {
             localStorage.setItem('basket', JSON.stringify([]));
-            document.getElementById('basket-items').innerHTML = '<p>Your basket is empty.</p>';
+            updateBasketItems();
             updateCartCount();
         }
 
