@@ -76,3 +76,21 @@ function togglePasswordVisibility() {
         passwordInput.type = 'password';
     }
 }
+
+function saveDeliveryInfo() {
+    const deliveryForm = document.getElementById('deliveryForm');    
+    const formData = {
+        firstName: deliveryForm.firstName.value,
+        lastName: deliveryForm.lastName.value,
+        relationship: deliveryForm.relationship.value,
+        address: deliveryForm.address.value,
+        city: deliveryForm.city.value,
+        state: deliveryForm.state.value,
+        zip: deliveryForm.zip.value
+    };
+
+    localStorage.setItem('deliveryInfo', JSON.stringify(formData));
+    const checkoutItems = JSON.parse(localStorage.getItem('checkoutItems') || '[]');
+    if (checkoutItems.length > 0) {
+    }
+}
