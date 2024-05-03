@@ -78,19 +78,80 @@ function togglePasswordVisibility() {
 }
 
 function saveDeliveryInfo() {
-    const deliveryForm = document.getElementById('deliveryForm');    
-    const formData = {
-        firstName: deliveryForm.firstName.value,
-        lastName: deliveryForm.lastName.value,
-        relationship: deliveryForm.relationship.value,
-        address: deliveryForm.address.value,
-        city: deliveryForm.city.value,
-        state: deliveryForm.state.value,
-        zip: deliveryForm.zip.value
-    };
+    const form = document.getElementById('deliveryForm');
 
-    localStorage.setItem('deliveryInfo', JSON.stringify(formData));
-    const checkoutItems = JSON.parse(localStorage.getItem('checkoutItems') || '[]');
-    if (checkoutItems.length > 0) {
+    if (form.checkValidity()) {
+        const formData = {
+            firstName: form.firstName.value,
+            lastName: form.lastName.value,
+            relationship: form.relationship.value,
+            address: form.address.value,
+            city: form.city.value,
+            state: form.state.value,
+            zip: form.zip.value
+        };
+
+        localStorage.setItem('deliveryInfo', JSON.stringify(formData));
+
+        // Redirect to the "place_order.html" page
+        window.location.href = 'place_order.html';
+    } else {
+        // Show validation errors
+        form.reportValidity();
     }
 }
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: email, password: password })
+    })
+    .then(response => {
+        if (response.ok) return response.json();
+        throw new Error('Login failed.');
+    })
+    .then(data => {
+        localStorage.setItem('authToken', data.token);
+        window.location.href = 'index.html';  // Assuming 'home.html' is the page to redirect after login
+    })
+    .catch(error => alert(error.message));
+});
+
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    fetch('/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: email, password: password, email: email })
+    })
+    .then(response => {
+        if (response.ok) return response.json();
+        throw new Error('Signup failed.');
+    })
+    .then(data => {
+        alert('Signup successful.');
+        window.location.href = 'home.html';  // Redirect or handle appropriately
+    })
+    .catch(error => alert(error.message));
+});
+
+document.getElementById('showPassword').onclick = function() {
+    const passwordInput = document.getElementById('password');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
+};
