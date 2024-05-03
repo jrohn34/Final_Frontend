@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Place Order</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Final Project</div>
+        <nav>
+            <a href="#">Track Order</a>
+            <a href="#">Help</a>
+            <a href="basket.html">Cart <span id="cart-count">0</span></a>
+        </nav>
+    </header>
+
+    <main class="order-details">
+        <div class="order-status">
+            <span class="completed">REVIEW</span>
+            <span class="completed">DELIVERY</span>
+            <span class="active">DONE</span>
+        </div>
+        
+        <div class="flower-info">
+            <img id="flower-image" src="" alt="Selected Flower">
+            <h2 id="flower-name"></h2>
+        </div>
+
+        <div class="order-summary">
+            <p>Delivery Date: <span id="delivery-date"></span></p>
+            <p>Item Pricing: <span id="item-price"></span></p>
+            <p>Delivery Address: <span id="delivery-address"></span></p>
+        </div>
+
+        <div class="pricing-details">
+            <p>Subtotal: <span id="subtotal"></span></p>
+            <p>Delivery: $25.00</p>
+            <p>Delivery Discount: <span id="delivery-discount">-$10.00</span></p>
+            <p>Tax: $0.00</p>
+            <p>Order Total: <span id="total-price"></span></p>
+        </div>
+
+        <button onclick="placeOrder()">Place Order</button>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

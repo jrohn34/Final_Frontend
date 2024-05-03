@@ -155,3 +155,67 @@ document.getElementById('showPassword').onclick = function() {
         passwordInput.type = 'password';
     }
 };
+
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
+    const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
+    if (selectedFlower && deliveryInfo) {
+        document.getElementById('flower-name').textContent = selectedFlower.name;
+        document.getElementById('flower-image').src = selectedFlower.imageUrl;
+        document.getElementById('flower-image').alt = selectedFlower.name;
+
+        document.getElementById('delivery-date').textContent = deliveryInfo.deliveryDate;
+        document.getElementById('item-price').textContent = `$${selectedFlower.price}`;
+        document.getElementById('delivery-address').textContent = `${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state}, ${deliveryInfo.zip}`;
+
+        const subtotal = parseFloat(selectedFlower.price);
+        const deliveryDiscount = localStorage.getItem('isLoggedIn') === 'true' ? 10 : 0;
+        const totalPrice = subtotal + 25 - deliveryDiscount;
+
+        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById('delivery-discount').textContent = `-$${deliveryDiscount.toFixed(2)}`;
+        document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
+    } else {
+        alert('No flower or delivery information found');
+        window.location.href = 'index.html'; 
+    }
+});
+
+function placeOrder() {
+    const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
+    const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
+    if (!deliveryInfo || !selectedFlower) {
+        alert('No delivery information or selected flower found');
+        return;
+    }
+
+    const orderData = {
+        flowerId: selectedFlower.id,
+        recipientName: deliveryInfo.firstName + " " + deliveryInfo.lastName,
+        totalCost: document.getElementById('total-price').textContent.replace('$', ''),
+        customerUserName: localStorage.getItem('username') // Assuming you store username in localStorage upon login
+    };
+
+    fetch('/orders/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken') // Assuming token storage upon login
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to place order');
+        return response.json();
+    })
+    .then(data => {
+        alert('Order successfully placed with ID: ' + data);
+        localStorage.removeItem('selectedFlower'); // Clear selected flower after order
+        localStorage.removeItem('deliveryInfo'); // Clear delivery info
+        window.location.href = 'order_confirmation.html'; // Redirect to confirmation page
+    })
+    .catch(error => {
+        console.error('Error placing order:', error);
+        alert('Failed to place order: ' + error.message);
+    });
+}
