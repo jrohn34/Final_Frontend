@@ -205,3 +205,26 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Invalid credentials!');
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
+    const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
+
+    if (selectedFlower && deliveryInfo) {
+        document.getElementById('flower-name').textContent = selectedFlower.name;
+        document.getElementById('delivery-date').textContent = deliveryInfo.deliveryDate;
+        document.getElementById('item-price').textContent = `$${selectedFlower.price}`;
+        document.getElementById('delivery-address').textContent = deliveryInfo.address;
+
+        const subtotal = selectedFlower.price;
+        const deliveryCharge = 25;
+        const discount = localStorage.getItem('isLoggedIn') === 'true' ? 10 : 0;
+        const total = subtotal + deliveryCharge - discount;
+
+        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById('delivery-discount').textContent = `-$${discount.toFixed(2)}`;
+        document.getElementById('order-total').textContent = `$${total.toFixed(2)}`;
+    } else {
+        console.error('Data missing');
+    }
+});
