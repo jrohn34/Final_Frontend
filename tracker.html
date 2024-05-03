@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Order Tracker</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Final Project</div>
+        <nav>
+            <a href="track_order.html">Track Order</a>
+            <a href="help.html">Help</a>
+            <a href="basket.html">Cart <span id="cart-count">0</span></a>
+        </nav>
+    </header>
+    <main>
+        <h1>My Orders</h1>
+        <div id="orders-container">
+            <!-- Orders will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ordersContainer = document.getElementById('orders-container');
+            const orders = JSON.parse(localStorage.getItem('checkoutItems') || '[]');
+
+            if (orders.length > 0) {
+                orders.forEach(order => {
+                    const orderHtml = `
+                        <div class="order-item">
+                            <img src="${order.imageUrl}" alt="${order.name}" style="width:100px; height:100px;">
+                            <h2>${order.name}</h2>
+                            <p>Delivery Date: ${order.deliveryDate}</p>
+                            <p>Item Pricing: $${order.price}</p>
+                            <p>Delivery Address: ${order.address}</p>
+                        </div>
+                    `;
+                    ordersContainer.innerHTML += orderHtml;
+                });
+            } else {
+                ordersContainer.innerHTML = '<p>You have no orders.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
