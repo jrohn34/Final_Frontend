@@ -3,63 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower Shop</title>
-    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Send Her Blooms</title>
 </head>
 <body>
     <header>
+        <h1>Send Her Blooms</h1>
         <nav>
-            <ul>
-                <li><a href="#">Track Order</a></li>
-                <li><a href="#">Help</a></li>
-                <li><a href="#"><img src="basket_icon.png" alt="Basket"></a></li>
-            </ul>
+            <a href="#">Track Order</a>
+            <a href="#">Help</a>
+            <a href="basket.html">Cart <span id="cart-count">0</span></a>
         </nav>
-        <div class="title-header">
-            <div class="title-box">
-                <h1>Send her Blooms</h1>
-            </div>
-            <div class="flower-image">
-                <img src="flowers/1.jpeg" alt="Flowers">
-            </div>
-        </div>
-        <div class="filter-bar">
-            <select name="flower-type">
-                <option value="mixed">Mixed</option>
-                <option value="roses">Roses</option>
-                <option value="lilies">Lilies</option>
-                <option value="tulips">Tulips</option>
-                <option value="daisies">Daisies</option>
-            </select>
-            <select name="occasions">
-                <option value="mothers-day">Mother's Day</option>
-                <option value="birthday">Birthday</option>
-                <option value="thank-you">Thank You</option>
-            </select>
-            <select name="colors">
-                <option value="mixed">Mixed</option>
-                <option value="red">Red</option>
-                <option value="yellow">Yellow</option>
-                <option value="green">Green</option>
-                <option value="orange">Orange</option>
-            </select>
-        </div>
-        <div class="sort-bar">
-            <select name="sorting-options">
-                <option value="price-low-to-high">Price: Low to High</option>
-                <option value="price-high-to-low">Price: High to Low</option>
-            </select>
-        </div>
     </header>
-    <main>
-        <div class="flower-gallery">
-            <div class="flower-item">
-                <img src="flowers/1.jpeg" alt="Flower 1">
-                <h2>Flower Name</h2>
-                <p>$10.00</p>
-            </div>
-            <!-- Repeat flower-item div for each flower -->
+    
+    <section class="flower-grid">
+        <div class="flower">
+            <img src="flowers/images/1.png" alt="Sugar Rush">
+            <h3>Sugar Rush</h3>
+            <p>From $54</p>
+            <button onclick="selectFlower('Sugar Rush', 54, 'flowers/images/1.png')">Select</button>
         </div>
-    </main>
+        <div class="flower">
+            <img src="flowers/images/2.png" alt="Lemonade">
+            <h3>Lemonade</h3>
+            <p>From $54</p>
+            <button onclick="selectFlower('Lemonade', 54, 'flowers/images/2.png')">Select</button>
+        </div>
+        <div class="flower">
+            <img src="flowers/images/3.png" alt="The Angels">
+            <h3>The Angels</h3>
+            <p>From $54</p>
+            <button onclick="selectFlower('The Angels', 54, 'flowers/images/3.png')">Select</button>
+        </div>
+        <div class="flower">
+            <img src="flowers/images/4.png" alt="Unbreakable">
+            <h3>Unbreakable</h3>
+            <p>From $59</p>
+            <button onclick="selectFlower('Unbreakable', 59, 'flowers/images/4.png')">Select</button>
+        </div>
+        <div class="flower">
+            <img src="flowers/images/5.png" alt="Sierra Sunset">
+            <h3>Sierra Sunset</h3>
+            <p>From $59</p>
+            <button onclick="selectFlower('Sierra Sunset', 59, 'flowers/images/5.png')">Select</button>
+        </div>
+        <div class="flower">
+            <img src="flowers/images/6.png" alt="Casablanca">
+            <h3>Casablanca</h3>
+            <p>From $59</p>
+            <button onclick="selectFlower('Casablanca', 59, 'flowers/images/6.png')">Select</button>
+        </div>
+    </section>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
