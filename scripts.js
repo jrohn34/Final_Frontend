@@ -205,37 +205,3 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Invalid credentials!');
     }
 });
-
-document.addEventListener('DOMContentLoaded', function() {
-    const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
-    const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
-
-    if (selectedFlower && deliveryInfo) {
-        document.getElementById('flower-name').textContent = selectedFlower.name;
-        document.getElementById('delivery-date').textContent = deliveryInfo.deliveryDate;
-        document.getElementById('item-price').textContent = `$${selectedFlower.price.toFixed(2)}`;
-        document.getElementById('delivery-address').textContent = `${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state}, ${deliveryInfo.zip}`;
-
-        const subtotal = parseFloat(selectedFlower.price);
-        const deliveryCharge = 25.00;
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; // Assume it's set on login
-        const deliveryDiscount = isLoggedIn ? 10 : 0;
-        const orderTotal = subtotal + deliveryCharge - deliveryDiscount;
-
-        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-        document.getElementById('delivery-discount').textContent = `-$${deliveryDiscount.toFixed(2)}`;
-        document.getElementById('order-total').textContent = `$${orderTotal.toFixed(2)}`;
-    } else {
-        alert('Required information is missing.');
-        window.location.href = 'index.html'; // Redirect to home page if data is missing
-    }
-});
-
-function placeOrder() {
-    alert('Order placed successfully!'); // Simulate placing the order
-    // Here you would typically send a request to the server
-    // Since we are using local storage and not integrating with the backend, we simulate the process
-    localStorage.removeItem('selectedFlower');
-    localStorage.removeItem('deliveryInfo');
-    window.location.href = 'order_confirmation.html'; // Redirect to a confirmation page
-}

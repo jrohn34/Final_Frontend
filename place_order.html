@@ -17,19 +17,60 @@
     </header>
     <main>
         <h2>Place Order</h2>
-        <div id="flower-info">Selected Flower: <span id="flower-name">Loading...</span></div>
-        <div id="order-details">
-            Delivery Date: <span id="delivery-date">Loading...</span><br>
-            Item Pricing: <span id="item-price">Loading...</span><br>
-            Delivery Address: <span id="delivery-address">Loading...</span><br>
-            Subtotal: <span id="subtotal">Loading...</span><br>
-            Delivery: $25.00<br>
-            Delivery Discount: <span id="delivery-discount">-$0.00</span><br>
-            Tax: $0.00<br>
-            Order Total: <span id="order-total">Loading...</span><br>
-        </div>
+        <div id="order-items"></div>
         <button onclick="placeOrder()">Place Order</button>
     </main>
-    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateOrderItems();
+            updateCartCount();
+        });
+
+        function updateOrderItems() {
+            const checkoutItems = JSON.parse(localStorage.getItem('checkoutItems') || '[]');
+            const orderItemsContainer = document.getElementById('order-items');
+            let total = 0;
+            let itemsHtml = checkoutItems.map(item => {
+                const itemTotal = parseFloat(item.price); // Assume price includes whatever necessary calculations
+                total += itemTotal;
+                return `
+                    <div class="order-item">
+                        <h3>${item.name}</h3>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                        <p>Delivery Date: ${item.deliveryDate}</p>
+                    </div>
+                `;
+            }).join('');
+
+            const deliveryCharge = 25.00;
+            const deliveryDiscount = localStorage.getItem('isLoggedIn') === 'true' ? 10 : 0;
+            const orderTotal = total + deliveryCharge - deliveryDiscount;
+
+            itemsHtml += `
+                <div class="totals">
+                    <p>Subtotal: $${total.toFixed(2)}</p>
+                    <p>Delivery: $25.00</p>
+                    <p>Delivery Discount: -$${deliveryDiscount.toFixed(2)}</p>
+                    <p>Order Total: $${orderTotal.toFixed(2)}</p>
+                </div>
+            `;
+
+            orderItemsContainer.innerHTML = itemsHtml;
+        }
+
+        function placeOrder() {
+            alert('Order placed successfully!');
+            // Clear local storage items related to the order
+            localStorage.removeItem('checkoutItems');
+            localStorage.removeItem('selectedFlower');
+            localStorage.removeItem('deliveryInfo');
+            window.location.href = 'order_confirmation.html'; // Redirect to a confirmation page
+        }
+
+        function updateCartCount() {
+            const basket = JSON.parse(localStorage.getItem('basket') || '[]');
+            document.getElementById('cart-count').textContent = basket.length;
+        }
+    </script>
 </body>
 </html>
