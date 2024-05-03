@@ -64,7 +64,6 @@ nav ul li {
 
 .flower-item img {
     width: 100%; /* Adjust size as needed */
-    max-width: 150px; /* Limit maximum width */
     height: auto;
 }
 
