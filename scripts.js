@@ -34,7 +34,6 @@ function addToBasket() {
     alert('Added to basket!');
     updateCartCount();
 
-    // Redirect to the delivery information page
     window.location.href = 'delivery_info.html';
 }
 

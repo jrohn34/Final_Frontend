@@ -31,7 +31,7 @@
             const orderItemsContainer = document.getElementById('order-items');
             let total = 0;
             let itemsHtml = checkoutItems.map(item => {
-                const itemTotal = parseFloat(item.price); // Assume price includes whatever necessary calculations
+                const itemTotal = parseFloat(item.price); 
                 total += itemTotal;
                 return `
                     <div class="order-item">
