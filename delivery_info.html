@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Delivery Information</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Final Project</div>
+        <nav>
+            <a href="#">Track Order</a>
+            <a href="#">Help</a>
+            <a href="basket.html">Cart <span id="cart-count">0</span></a>
+        </nav>
+    </header>
+
+    <main class="delivery-info">
+        <h2 id="flower-name">Flower Name - <span id="flower-price"></span></h2>
+        <form id="deliveryForm">
+            <label for="firstName">First Name*</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name*</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="relationship">Relationship*</label>
+            <select id="relationship" name="relationship" required>
+                <option value="">Select</option>
+                <option value="friend">Friend</option>
+                <option value="family">Family</option>
+            </select>
+
+            <label for="address">Address*</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="city">City*</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="state">State*</label>
+            <select id="state" name="state" required>
+                <option value="">Select</option>
+                <!-- State options here -->
+            </select>
+
+            <label for="zip">Zip Code*</label>
+            <input type="text" id="zip" name="zip" required>
+
+            <button type="button" onclick="saveDeliveryInfo()">Continue</button>
+        </form>
+        <div class="account-options">
+            <button onclick="location.href='signup.html'">Sign Up</button>
+            <button onclick="location.href='login.html'">Log In</button>
+        </div>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
