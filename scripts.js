@@ -122,28 +122,31 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .catch(error => alert(error.message));
 });
 
-document.getElementById('signupForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-    fetch('/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username: email, password: password, email: email })
-    })
-    .then(response => {
-        if (response.ok) return response.json();
-        throw new Error('Signup failed.');
-    })
-    .then(data => {
-        alert('Signup successful.');
-        window.location.href = 'index.html';  // Redirect or handle appropriately
-    })
-    .catch(error => alert(error.message));
-});
+        fetch('/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: email, password: password, email: email })
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Signup failed. Status: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            alert('Signup successful. Welcome!');
+            window.location.href = 'index.html'; // Redirect or further interaction
+        })
+        .catch(error => {
+            console.error('Signup error:', error);
+            alert('Error during signup: ' + error.message);
+        });
+    });
 
 document.getElementById('showPassword').onclick = function() {
     const passwordInput = document.getElementById('password');
