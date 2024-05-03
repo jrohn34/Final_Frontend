@@ -54,7 +54,13 @@
             <button onclick="selectFlower('Casablanca', 59, 'flowers/images/6.png')">Select</button>
         </div>
     </section>
-
     <script src="scripts.js"></script>
+    <script>
+        function selectFlower(name, price, imageUrl) {
+            const flowerData = { name, price, imageUrl };
+            localStorage.setItem('selectedFlower', JSON.stringify(flowerData));
+            window.location.href = 'add_to_basket.html';
+        }
+    </script>
 </body>
 </html>

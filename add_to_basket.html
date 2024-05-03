@@ -1,22 +1,91 @@
-<main class="product-detail">
-    <img src="" alt="" id="product-image" class="product-image">
-    <div class="product-info">
-        <h2 id="product-name"></h2>
-        <div class="form-group">
-            <label for="delivery-date">Delivery Date:</label>
-            <input type="date" id="delivery-date" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Add to Basket - The Angels</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Final Project</div>
+        <nav>
+            <a href="#">Track Order</a>
+            <a href="#">Help</a>
+            <a href="basket.html">Cart <span id="cart-count">0</span></a>
+        </nav>
+    </header>
+
+    <main class="product-detail">
+        <div class="product-image-container">
+            <img src="" alt="" id="product-image" class="product-image">
         </div>
-        <div class="form-group">
-            <label>Purchasing Options:</label>
-            <div class="radio-group">
-                <input type="radio" id="subscription" name="purchase-option" value="subscription" checked>
-                <label for="subscription">Start a Subscription: <span id="subscription-price"></span> + free shipping</label>
+        <div class="product-info">
+            <h2 id="product-name"></h2>
+            <div class="form-group">
+                <label for="delivery-date">Delivery Date:</label>
+                <input type="date" id="delivery-date" required>
             </div>
-            <div class="radio-group">
-                <input type="radio" id="one-time" name="purchase-option" value="one-time">
-                <label for="one-time">One time purchase: <span id="one-time-price"></span></label>
-            </div>
+            <fieldset>
+                <legend>Purchasing Options</legend>
+                <label>
+                    <input type="radio" name="purchase-option" value="subscription" checked>
+                    Start a Subscription: <span id="subscription-price"></span> + free shipping
+                    <p>Best Value: Up to 30% off + free shipping on subscription deliveries.</p>
+                </label>
+                <label>
+                    <input type="radio" name="purchase-option" value="one-time">
+                    One time purchase: <span id="one-time-price"></span>
+                </label>
+            </fieldset>
+            <button onclick="addToBasket()">Add to Basket</button>
         </div>
-        <button onclick="addToBasket()">Add to Basket</button>
-    </div>
-</main>
+    </main>
+
+    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
+            if (selectedFlower) {
+                document.getElementById('product-name').textContent = selectedFlower.name;
+                document.getElementById('product-image').src = selectedFlower.imageUrl;
+                document.getElementById('product-image').alt = selectedFlower.name;
+                document.getElementById('subscription-price').textContent = `$${selectedFlower.price - 10}`;
+                document.getElementById('one-time-price').textContent = `$${selectedFlower.price}`;
+            } else {
+                console.log('No flower selected');
+                // Redirect back to homepage or display message
+            }
+        });
+
+        function addToBasket() {
+            const deliveryDate = document.getElementById('delivery-date').value;
+            const purchaseOption = document.querySelector('input[name="purchase-option"]:checked').value;
+
+            if (!deliveryDate) {
+                alert('Please select a delivery date.');
+                return;
+            }
+
+            const basket = JSON.parse(localStorage.getItem('basket') || '[]');
+            const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
+
+            basket.push({
+                name: selectedFlower.name,
+                price: purchaseOption === 'subscription' ? selectedFlower.price - 10 : selectedFlower.price,
+                deliveryDate: deliveryDate,
+                purchaseOption: purchaseOption
+            });
+
+            localStorage.setItem('basket', JSON.stringify(basket));
+            alert('Added to basket!');
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const basket = JSON.parse(localStorage.getItem('basket') || '[]');
+            document.getElementById('cart-count').textContent = basket.length;
+        }
+    </script>
+</body>
+</html>
