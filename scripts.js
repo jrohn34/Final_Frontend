@@ -93,10 +93,8 @@ function saveDeliveryInfo() {
 
         localStorage.setItem('deliveryInfo', JSON.stringify(formData));
 
-        // Redirect to the "place_order.html" page
         window.location.href = 'place_order.html';
     } else {
-        // Show validation errors
         form.reportValidity();
     }
 }
@@ -119,7 +117,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .then(data => {
         localStorage.setItem('authToken', data.token);
-        window.location.href = 'index.html';  // Assuming 'home.html' is the page to redirect after login
+        window.location.href = 'index.html';  
     })
     .catch(error => alert(error.message));
 });
@@ -142,7 +140,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     })
     .then(data => {
         alert('Signup successful.');
-        window.location.href = 'home.html';  // Redirect or handle appropriately
+        window.location.href = 'index.html';  // Redirect or handle appropriately
     })
     .catch(error => alert(error.message));
 });
