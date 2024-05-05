@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Order Tracker</title>
+    <title>Track Order</title>
 </head>
 <body>
     <header>
@@ -24,23 +24,22 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ordersContainer = document.getElementById('orders-container');
-            const orders = JSON.parse(localStorage.getItem('checkoutItems') || '[]');
+            const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
+            const selectedFlower = JSON.parse(localStorage.getItem('selectedFlower'));
 
-            if (orders.length > 0) {
-                orders.forEach(order => {
-                    const orderHtml = `
-                        <div class="order-item">
-                            <img src="${order.imageUrl}" alt="${order.name}" style="width:100px; height:100px;">
-                            <h2>${order.name}</h2>
-                            <p>Delivery Date: ${order.deliveryDate}</p>
-                            <p>Item Pricing: $${order.price}</p>
-                            <p>Delivery Address: ${order.address}</p>
-                        </div>
-                    `;
-                    ordersContainer.innerHTML += orderHtml;
-                });
+            if (deliveryInfo && selectedFlower) {
+                const orderHtml = `
+                    <div class="order-item">
+                        <img src="${selectedFlower.imageUrl}" alt="${selectedFlower.name}" style="width:100px; height:100px;">
+                        <h2>${selectedFlower.name}</h2>
+                        <p>Delivery Date: ${deliveryInfo.deliveryDate}</p>
+                        <p>Item Pricing: $${selectedFlower.price}</p>
+                        <p>Delivery Address: ${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state}, ${deliveryInfo.zip}</p>
+                    </div>
+                `;
+                ordersContainer.innerHTML = orderHtml;
             } else {
-                ordersContainer.innerHTML = '<p>You have no orders.</p>';
+                ordersContainer.innerHTML = '<p>No orders found. Please place an order first.</p>';
             }
         });
     </script>
