@@ -34,7 +34,7 @@
                         <h2>${selectedFlower.name}</h2>
                         <p>Delivery Date: ${deliveryInfo.deliveryDate}</p>
                         <p>Item Pricing: $${selectedFlower.price}</p>
-                        <p>Delivery Address: ${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.state}, ${deliveryInfo.zip}</p>
+                        <p>Delivery Address: ${order.address}</p>
                     </div>
                 `;
                 ordersContainer.innerHTML = orderHtml;
